@@ -11,14 +11,11 @@ const bitcoinReducer = (state = initialState, action) => {
     case FETCH_BITCOIN_PRICE_REQUEST:
       return { ...state, loading: true, error: null };
     case FETCH_BITCOIN_PRICE_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        prices: {
-          ...state.prices, // Зберігаємо попередні ціни
-          [action.payload.symbol]: action.payload.price, // Оновлюємо конкретний символ
-        },
-      };
+  return {
+    ...state,
+    loading: false,
+    prices: action.payload, // Зберігаємо всі ціни, що надходять з action.payload
+  };
     case FETCH_BITCOIN_PRICE_FAILURE:
       return { ...state, loading: false, error: action.payload };
     default:

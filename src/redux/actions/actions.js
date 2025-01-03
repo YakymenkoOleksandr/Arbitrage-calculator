@@ -10,27 +10,41 @@ const fetchBitcoinPriceRequest = () => ({
   type: FETCH_BITCOIN_PRICE_REQUEST,
 });
 
-const fetchBitcoinPriceSuccess = (symbol, price) => ({
+const fetchBitcoinPriceSuccess = (prices) => ({
   type: FETCH_BITCOIN_PRICE_SUCCESS,
-  payload: { symbol, price }, // Передаємо символ і ціну
+  payload: prices, // Передаємо всі ціни одночасно
 });
-
 
 const fetchBitcoinPriceFailure = (error) => ({
   type: FETCH_BITCOIN_PRICE_FAILURE,
   payload: error,
 });
 
-// Асинхронний thunk для отримання ціни на біткоїн
-export const fetchCryptoPrice = (symbol) => async (dispatch) => {
-  dispatch(fetchBitcoinPriceRequest()); // Використовуйте той самий екшен для запиту
+// Асинхронний thunk для отримання цін на кілька криптовалют
+export const fetchCryptoPrices = (symbols) => async (dispatch) => {
+  dispatch(fetchBitcoinPriceRequest()); // Викликаємо запит
 
   try {
-    const response = await axios.get(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`);
-    const price = response.data.price; // Ціна для переданого символу
-    dispatch(fetchBitcoinPriceSuccess(symbol, price)); // Використовуйте той самий екшен для успіху
+    // Створюємо масив промісів для всіх запитів
+    const promises = symbols.map(symbol =>
+      axios.get(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`)
+    );
+
+    // Чекаємо на виконання всіх промісів
+    const responses = await Promise.all(promises);
+
+    // Формуємо об'єкт з цінами
+    const prices = responses.reduce((acc, response) => {
+      const { symbol, price } = response.data;
+      acc[symbol] = price;
+      return acc;
+    }, {});
+
+    
+
+    dispatch(fetchBitcoinPriceSuccess(prices)); // Відправляємо всі ціни
   } catch (error) {
-    console.error(`Помилка отримання ціни для ${symbol}:`, error.message);
-    dispatch(fetchBitcoinPriceFailure(error.message));
+    console.error("Помилка отримання цін:", error.message);
+    dispatch(fetchBitcoinPriceFailure(error.message)); // Відправляємо помилку
   }
 };

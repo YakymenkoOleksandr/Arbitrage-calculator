@@ -1,7 +1,7 @@
 import "./App.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCryptoPrice } from "./redux/actions/actions.js";
+import { fetchCryptoPrices } from "./redux/actions/actions.js";
 import USDT_BTC_ETH from "./components/USDT_BTC_ETH.jsx";
 import USDT_ETH_BTC from "./components/USDT_ETH_BTC.jsx";
 import USDT_BNB_ETH from "./components/USDT_BNB_ETH.jsx";
@@ -13,33 +13,35 @@ function App() {
   const dispatch = useDispatch();
   const { prices, error } = useSelector((state) => state.bitcoin);
   let workingСapital = 1000;
-  let pricesBTCUSDT = prices["BTCUSDT"];
-  let pricesETHUSDT = prices["ETHUSDT"];
-  let pricesETHBTC = prices["ETHBTC"];
-  let pricesBNBUSDT = prices["BNBUSDT"];
-  let pricesBNBETH = prices["BNBETH"];
-  let pricesBNBBTC = prices["BNBBTC"];
 
-  let pricesBTCETH = 1 / prices["ETHBTC"];
-  let pricesETHBNB = 1 / prices["BNBETH"];
-  let pricesBTCBNB = 1 / prices["BNBBTC"];
+  // Список всіх пар криптовалют
+  const symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "ETHBTC", "BNBETH", "BNBBTC"];
 
   useEffect(() => {
-    // Створення інтервалу для оновлення ціни кожну секунду
+    // Викликаємо fetchCryptoPrices для всіх пар одночасно
     const interval = setInterval(() => {
-      dispatch(fetchCryptoPrice("BTCUSDT")); // Ціна BTC/USDT
-      dispatch(fetchCryptoPrice("ETHUSDT")); // Ціна ETH/USDT
-      dispatch(fetchCryptoPrice("BNBUSDT")); // Ціна BNB/USDT
-      dispatch(fetchCryptoPrice("ETHBTC")); // Ціна BTC/ETH
-      dispatch(fetchCryptoPrice("BNBETH")); // Ціна BNB/ETH
-      dispatch(fetchCryptoPrice("BNBBTC")); // Ціна BNB/ETH
+      dispatch(fetchCryptoPrices(symbols));
     }, 1000);
 
     // Очищення інтервалу при розмонтуванні компонента
     return () => clearInterval(interval);
   }, [dispatch]);
 
+  
+  
   if (error) return <p>Error: {error}</p>;
+
+  // Отримуємо ціни для кожної пари
+  const pricesBTCUSDT = prices["BTCUSDT"];
+  const pricesETHUSDT = prices["ETHUSDT"];
+  const pricesETHBTC = prices["ETHBTC"];
+  const pricesBNBUSDT = prices["BNBUSDT"];
+  const pricesBNBETH = prices["BNBETH"];
+  const pricesBNBBTC = prices["BNBBTC"];
+
+  const pricesBTCETH = 1 / prices["ETHBTC"];
+  const pricesETHBNB = 1 / prices["BNBETH"];
+  const pricesBTCBNB = 1 / prices["BNBBTC"];
 
   return (
     <div>
