@@ -22,7 +22,7 @@ function USDT_BTC_BNB({
 
 
   return (
-        <p>Валютна пара BTC BNB USDT {profitInPercentage}% </p>
+        <p>BTC BNB USDT {profitInPercentage}% </p>
   );
 }
 

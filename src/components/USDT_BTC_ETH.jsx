@@ -22,7 +22,7 @@ function USDT_BTC_ETH({
 
 
   return (
-        <p>Валютна пара BTC ETH USDT {profitInPercentage}% </p>
+        <p>BTC ETH USDT {profitInPercentage}% </p>
   );
 }
 

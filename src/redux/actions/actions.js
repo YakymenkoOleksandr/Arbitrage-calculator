@@ -40,8 +40,6 @@ export const fetchCryptoPrices = (symbols) => async (dispatch) => {
       return acc;
     }, {});
 
-    
-
     dispatch(fetchBitcoinPriceSuccess(prices)); // Відправляємо всі ціни
   } catch (error) {
     console.error("Помилка отримання цін:", error.message);

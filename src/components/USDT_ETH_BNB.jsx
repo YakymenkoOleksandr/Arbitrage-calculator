@@ -22,7 +22,7 @@ function USDT_ETH_BNB({
 
 
   return (
-        <p>Валютна пара ETH BNB USDT {profitInPercentage}% </p>
+        <p>ETH BNB USDT {profitInPercentage}% </p>
   );
 }
 

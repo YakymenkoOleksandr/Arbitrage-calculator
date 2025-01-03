@@ -15,7 +15,7 @@ function USDT_ETH_BTC({
     let profitInPercentage = Math.round(((sumUSDT / workingСapital) * 100 - 100) * 100) / 100;
     
     return (
-        <p>Валютна пара ETH BTC USDT {profitInPercentage}% </p>
+        <p>ETH BTC USDT {profitInPercentage}% </p>
   );
 };
   

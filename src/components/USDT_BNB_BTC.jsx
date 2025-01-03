@@ -4,7 +4,7 @@ function USDT_BNB_BTC({
     pricesBTCUSDT,
     pricesBTCBNB,
 }) {
-    
+ 
   let summinusСommission = workingСapital - workingСapital * 0.00075; // Сума з вирахуванням першої комісії
   let amountOfBNBPurchased = summinusСommission / pricesBNBUSDT; // Сума купленої першої валюти за оборотний капітал з відрахованою комісіє
     
@@ -19,9 +19,8 @@ function USDT_BNB_BTC({
   let profitInPercentage =
     Math.round(((sumUSDT / workingСapital) * 100 - 100) * 100) / 100;
 
-
   return (
-        <p>Валютна пара BNB BTC USDT {profitInPercentage}% </p>
+        <p>BNB BTC USDT {profitInPercentage}%</p>
   );
 }
 
