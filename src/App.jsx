@@ -2,24 +2,14 @@ import "./App.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCryptoPrices } from "./redux/actions/actions.js";
-import USDT_BTC_ETH from "./components/USDT_BTC_ETH.jsx";
-import USDT_ETH_BTC from "./components/USDT_ETH_BTC.jsx";
-import USDT_BNB_ETH from "./components/USDT_BNB_ETH.jsx";
-import USDT_ETH_BNB from "./components/USDT_ETH_BNB.jsx";
-import USDT_BNB_BTC from "./components/USDT_BNB_BTC.jsx";
-import USDT_BTC_BNB from "./components/USDT_BTC_BNB.jsx";
-import USDT_BNB_XRP from "./components/USDT_BNB_XRP.jsx";
-import USDT_XRP_BNB from "./components/USDT_XRP_BNB.jsx";
-import USDT_XRP_ETH from "./components/USDT_XRP_ETH.jsx";
-import USDT_ETH_XRP from "./components/USDT_ETH_XRP.jsx";
-import USDT_XRP_BTC from "./components/USDT_XRP_BTC.jsx";
-import USDT_BTC_XRP from "./components/USDT_BTC_XRP.jsx";
-
+import { CommonComponnt } from "./components/CommonComponent.jsx";
 
 function App() {
   const dispatch = useDispatch();
-  const { prices, error } = useSelector((state) => state.bitcoin);
-  let workingСapital = 1000;
+  const { prices, error, lastFetchTime } = useSelector(
+    (state) => state.bitcoin
+  ); // Додаємо lastFetchTime
+  let workingСapital = 1;
 
   // Список всіх пар криптовалют
   const symbols = [
@@ -33,6 +23,9 @@ function App() {
     "XRPBNB",
     "XRPETH",
     "XRPBTC",
+    "DOTUSDT",
+    "DOTBTC",
+    "DOTETH",
   ];
 
   useEffect(() => {
@@ -40,7 +33,7 @@ function App() {
     // Викликаємо fetchCryptoPrices для всіх пар одночасно
     const interval = setInterval(() => {
       dispatch(fetchCryptoPrices(symbols));
-    }, 2000);
+    }, 5000);
 
     // Очищення інтервалу при розмонтуванні компонента
     return () => clearInterval(interval);
@@ -56,97 +49,132 @@ function App() {
   const pricesBNBETH = prices["BNBETH"];
   const pricesBNBBTC = prices["BNBBTC"];
   const pricesXRPUSDT = prices["XRPUSDT"];
-  const picesXRPBNB = prices["XRPBNB"];
-  const picesXRPETH = prices["XRPETH"];
-  const picesXRPBTC = prices["XRPBTC"];
-
- 
-
-  
+  const pricesXRPBNB = prices["XRPBNB"];
+  const pricesXRPETH = prices["XRPETH"];
+  const pricesXRPBTC = prices["XRPBTC"];
+  const pricesDOTUSDT = prices["DOTUSDT"];
+  const pricesDOTBTC = prices["DOTBTC"];
+  const pricesDOTETH = prices["DOTETH"];
 
   const pricesBTCETH = 1 / prices["ETHBTC"];
   const pricesETHBNB = 1 / prices["BNBETH"];
   const pricesBTCBNB = 1 / prices["BNBBTC"];
   const pricesBNBXRP = 1 / prices["XRPBNB"];
-  const picesETHXRP = 1 / prices["XRPETH"];
-  const picesBTCXRP = 1 / prices["XRPBTC"];
+  const pricesETHXRP = 1 / prices["XRPETH"];
+  const pricesBTCXRP = 1 / prices["XRPBTC"];
+  const pricesBTCDOT = 1 / prices["DOTBTC"];
+  const pricesETHDOT = 1 / prices["DOTETH"];
 
   return (
     <div>
-      <USDT_BTC_ETH
-        pricesBTCUSDT={pricesBTCUSDT}
-        pricesETHUSDT={pricesETHUSDT}
-        pricesETHBTC={pricesETHBTC}
+      <p>
+        Останне оновлення: <br /> {lastFetchTime}
+      </p>
+      <CommonComponnt
+        pairName="BTC→ETH→USDT"
         workingСapital={workingСapital}
+        pricesFirstCoin={pricesBTCUSDT}
+        pricesSecondCoin={pricesETHUSDT}
+        pricesCoinToCoin={pricesETHBTC}
       />
-      <USDT_BTC_BNB
+      <CommonComponnt
+        pairName="BTC→BNB→USDT"
         workingСapital={workingСapital}
-        pricesBNBUSDT={pricesBNBUSDT}
-        pricesBTCUSDT={pricesBTCUSDT}
-        pricesBNBBTC={pricesBNBBTC}
+        pricesFirstCoin={pricesBTCUSDT}
+        pricesSecondCoin={pricesBNBUSDT}
+        pricesCoinToCoin={pricesBNBBTC}
       />
-      <USDT_BTC_XRP
+      <CommonComponnt
+        pairName="BTC→XRP→USDT"
         workingСapital={workingСapital}
-        pricesXRPUSDT={pricesXRPUSDT}
-        pricesBTCUSDT={pricesBTCUSDT}
-        picesXRPBTC={picesXRPBTC}
+        pricesFirstCoin={pricesBTCUSDT}
+        pricesSecondCoin={pricesXRPUSDT}
+        pricesCoinToCoin={pricesXRPBTC}
       />
-      <USDT_ETH_BTC
-        pricesBTCUSDT={pricesBTCUSDT}
-        pricesETHUSDT={pricesETHUSDT}
-        pricesBTCETH={pricesBTCETH}
+      <CommonComponnt
+        pairName="BTC→DOT→USDT"
         workingСapital={workingСapital}
+        pricesFirstCoin={pricesBTCUSDT}
+        pricesSecondCoin={pricesDOTUSDT}
+        pricesCoinToCoin={pricesDOTBTC}
       />
-      <USDT_ETH_BNB
+      <CommonComponnt
+        pairName="ETH→BTC→USDT"
         workingСapital={workingСapital}
-        pricesBNBUSDT={pricesBNBUSDT}
-        pricesETHUSDT={pricesETHUSDT}
-        pricesBNBETH={pricesBNBETH}
+        pricesFirstCoin={pricesETHUSDT}
+        pricesSecondCoin={pricesBTCUSDT}
+        pricesCoinToCoin={pricesBTCETH}
       />
-      <USDT_ETH_XRP
+      <CommonComponnt
+        pairName="ETH→BNB→USDT"
         workingСapital={workingСapital}
-        pricesETHUSDT={pricesETHUSDT}
-        pricesXRPUSDT={pricesXRPUSDT}
-        picesXRPETH={picesXRPETH}
+        pricesFirstCoin={pricesETHUSDT}
+        pricesSecondCoin={pricesBNBUSDT}
+        pricesCoinToCoin={pricesBNBETH}
       />
-      <USDT_BNB_ETH
+      <CommonComponnt
+        pairName="ETH→XRP→USDT"
         workingСapital={workingСapital}
-        pricesBNBUSDT={pricesBNBUSDT}
-        pricesETHUSDT={pricesETHUSDT}
-        pricesETHBNB={pricesETHBNB}
+        pricesFirstCoin={pricesETHUSDT}
+        pricesSecondCoin={pricesXRPUSDT}
+        pricesCoinToCoin={pricesXRPETH}
       />
-      <USDT_BNB_BTC
+      <CommonComponnt
+        pairName="BNB→ETH→USDT"
         workingСapital={workingСapital}
-        pricesBNBUSDT={pricesBNBUSDT}
-        pricesBTCUSDT={pricesBTCUSDT}
-        pricesBTCBNB={pricesBTCBNB}
+        pricesFirstCoin={pricesBNBUSDT}
+        pricesSecondCoin={pricesETHUSDT}
+        pricesCoinToCoin={pricesETHBNB}
       />
-      <USDT_BNB_XRP
+      <CommonComponnt
+        pairName="BNB→BTC→USDT"
         workingСapital={workingСapital}
-        pricesBNBUSDT={pricesBNBUSDT}
-        pricesXRPUSDT={pricesXRPUSDT}
-        picesXRPBNB={picesXRPBNB}
+        pricesFirstCoin={pricesBNBUSDT}
+        pricesSecondCoin={pricesBTCUSDT}
+        pricesCoinToCoin={pricesBTCBNB}
       />
-      <USDT_XRP_BNB
+      <CommonComponnt
+        pairName="BNB→XRP→USDT"
         workingСapital={workingСapital}
-        pricesBNBUSDT={pricesBNBUSDT}
-        pricesXRPUSDT={pricesXRPUSDT}
-        pricesBNBXRP={pricesBNBXRP}
+        pricesFirstCoin={pricesBNBUSDT}
+        pricesSecondCoin={pricesXRPUSDT}
+        pricesCoinToCoin={pricesXRPBNB}
       />
-      <USDT_XRP_ETH 
+      <CommonComponnt
+        pairName="XRP→BNB→USDT"
         workingСapital={workingСapital}
-        pricesETHUSDT={pricesETHUSDT}
-        pricesXRPUSDT={pricesXRPUSDT}
-        picesETHXRP={picesETHXRP}
+        pricesFirstCoin={pricesXRPUSDT}
+        pricesSecondCoin={pricesBNBUSDT}
+        pricesCoinToCoin={pricesBNBXRP}
       />
-      
-      <USDT_XRP_BTC
+      <CommonComponnt
+        pairName="XRP→ETH→USDT"
         workingСapital={workingСapital}
-        pricesXRPUSDT={pricesXRPUSDT}
-        pricesBTCUSDT={pricesBTCUSDT}
-        picesBTCXRP={picesBTCXRP}
+        pricesFirstCoin={pricesXRPUSDT}
+        pricesSecondCoin={pricesETHUSDT}
+        pricesCoinToCoin={pricesETHXRP}
       />
-      
+      <CommonComponnt
+        pairName="XRP→BTC→USDT"
+        workingСapital={workingСapital}
+        pricesFirstCoin={pricesXRPUSDT}
+        pricesSecondCoin={pricesBTCUSDT}
+        pricesCoinToCoin={pricesBTCXRP}
+      />
+      <CommonComponnt
+        pairName="DOT→BTC→USDT"
+        workingСapital={workingСapital}
+        pricesFirstCoin={pricesDOTUSDT}
+        pricesSecondCoin={pricesBTCUSDT}
+        pricesCoinToCoin={pricesBTCDOT}
+      />
+      <CommonComponnt
+        pairName="DOT→ETH→USDT"
+        workingСapital={workingСapital}
+        pricesFirstCoin={pricesDOTUSDT}
+        pricesSecondCoin={pricesETHUSDT}
+        pricesCoinToCoin={pricesETHDOT}
+      />
     </div>
   );
 }

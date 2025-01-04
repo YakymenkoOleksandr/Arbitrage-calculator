@@ -1,26 +1,30 @@
-import {FETCH_BITCOIN_PRICE_REQUEST, FETCH_BITCOIN_PRICE_SUCCESS, FETCH_BITCOIN_PRICE_FAILURE} from '../actions/actions.js'
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchCryptoPrices } from "../actions/actions"; // Імпортуємо thunk
 
-const initialState = {
-  loading: false,
-  prices: {}, // Об'єкт для збереження цін кількох криптовалют
-  error: null,
-};
-
-const bitcoinReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case FETCH_BITCOIN_PRICE_REQUEST:
-      return { ...state, loading: true, error: null };
-    case FETCH_BITCOIN_PRICE_SUCCESS:
-  return {
-    ...state,
+const bitcoinSlice = createSlice({
+  name: "bitcoin",
+  initialState: {
     loading: false,
-    prices: action.payload, // Зберігаємо всі ціни, що надходять з action.payload
-  };
-    case FETCH_BITCOIN_PRICE_FAILURE:
-      return { ...state, loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
+    prices: {},
+    error: null,
+  },
+  reducers: {}, // Можемо додати інші синхронні редуктори тут
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCryptoPrices.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchCryptoPrices.fulfilled, (state, action) => {
+        state.loading = false;
+        state.prices = action.payload.prices;
+        state.lastFetchTime = action.payload.lastFetchTime; // Записуємо час
+      })
+      .addCase(fetchCryptoPrices.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+  },
+});
 
-export default bitcoinReducer;
+export default bitcoinSlice.reducer;
