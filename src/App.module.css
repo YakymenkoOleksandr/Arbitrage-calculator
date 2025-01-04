@@ -1,0 +1,28 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+body{
+  background-color: black;
+  padding-left: 20px;
+}
+
+.currencyPairsOnBinance {
+  display: flex;
+  flex-wrap: wrap;
+  /* Дозволяє блокам переноситися */
+  flex-direction: column;
+  width: 100%;
+  /* Робить ширину контейнера адаптивною */
+  height: 100vh;
+  /* Робить висоту контейнера рівною висоті екрану */
+  overflow: auto;
+  /* Додає скролл, якщо блоків більше, ніж вміщається */
+  
+  /* Вирівнювання блоків по горизонталі */
+  align-content: flex-start;
+  /* Контроль заповнення рядків зверху вниз */
+  gap: 10px;
+  /* Відступи між блоками */
+}
