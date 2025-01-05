@@ -110,6 +110,7 @@ function App() {
     "ENAUSDT",
     "ENABTC",
     "ENAETH",
+    "ENABNB",
     "OMUSDT",
     "OMBTC",
   ];
@@ -374,12 +375,10 @@ function App() {
     { pairName: "ETC→BNB→USDT", pricesFirstCoin: prices["ETCUSDT"], pricesSecondCoin: prices["BNBUSDT"], pricesCoinToCoin: 1 / prices["ETCBNB"] },
     { pairName: "RENDER→BNB→USDT", pricesFirstCoin: prices["RENDERUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["RENDERBTC"] },
     { pairName: "ENA→BTC→USDT", pricesFirstCoin: prices["ENAUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["ENABTC"] },
-    { pairName: "ENA→ETH→USDT", pricesFirstCoin: prices["ENAUSDT"], pricesSecondCoin: prices["ETHUSDT"], pricesCoinToCoin: 1 / prices["ENAETH"] },
     { pairName: "ENA→BNB→USDT", pricesFirstCoin: prices["ENAUSDT"], pricesSecondCoin: prices["BNBUSDT"], pricesCoinToCoin: 1 / prices["ENABNB"] },
     { pairName: "OM→BTC→USDT", pricesFirstCoin: prices["OMUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["OMBTC"] },
  
   ];
-  // console.log(prices["NEARUSDT"], prices["BNBUSDT"], prices["NEARBNB"]);
   return (
     <div className={css.wrapperForCoinPair}>
       <div className={css.currencyPairsOnBinance}>
