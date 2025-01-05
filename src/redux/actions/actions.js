@@ -6,6 +6,7 @@ export const FETCH_BITCOIN_PRICE_REQUEST = 'FETCH_BITCOIN_PRICE_REQUEST';
 export const FETCH_BITCOIN_PRICE_SUCCESS = 'FETCH_BITCOIN_PRICE_SUCCESS';
 export const FETCH_BITCOIN_PRICE_FAILURE = 'FETCH_BITCOIN_PRICE_FAILURE';
 
+
 // Асинхронний thunk для отримання цін на кілька криптовалют
 export const fetchCryptoPrices = createAsyncThunk(
   "bitcoin/fetchCryptoPrices",

@@ -8,7 +8,12 @@ const bitcoinSlice = createSlice({
     prices: {},
     error: null,
   },
-  reducers: {}, // Можемо додати інші синхронні редуктори тут
+  reducers: {
+     // Оновлений reducer для обробки WebSocket даних
+    updateCryptoPrices: (state, action) => {
+      state.prices = action.payload;
+    },
+  }, // Можемо додати інші синхронні редуктори тут
   extraReducers: (builder) => {
     builder
       .addCase(fetchCryptoPrices.pending, (state) => {
@@ -26,5 +31,9 @@ const bitcoinSlice = createSlice({
       });
   },
 });
+
+
+
+export const { updateCryptoPrices } = bitcoinSlice.actions;
 
 export default bitcoinSlice.reducer;

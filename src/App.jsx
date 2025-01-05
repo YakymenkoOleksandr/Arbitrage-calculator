@@ -1,8 +1,9 @@
 import css from"./App.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCryptoPrices } from "./redux/actions/actions.js";
+// import { fetchCryptoPrices } from "./redux/actions/actions.js";
 import { CommonComponnt } from "./components/CommonComponent.jsx";
+import {connectWebSocket} from "./serviceBinance/WebSocketService.js"
 
 function App() {
   const dispatch = useDispatch();
@@ -10,6 +11,8 @@ function App() {
     (state) => state.bitcoin
   ); // Додаємо lastFetchTime
   let workingСapital = 1;
+ // console.log(prices);
+  
 
   // Список всіх пар криптовалют
   const symbols = [
@@ -73,16 +76,30 @@ function App() {
     "UNIETH",
   ];
 
-  useEffect(() => {
+  /*useEffect(() => {
     dispatch(fetchCryptoPrices(symbols));
     // Викликаємо fetchCryptoPrices для всіх пар одночасно
     const interval = setInterval(() => {
       dispatch(fetchCryptoPrices(symbols));
-    }, 1000);
+    }, 10000);
 
     // Очищення інтервалу при розмонтуванні компонента
     return () => clearInterval(interval);
-  }, [dispatch]);
+  }, [dispatch]);*/
+  
+
+  // Другий useEffect: Підключення до WebSocket
+  useEffect(() => {
+    // Викликаємо функцію для підключення до WebSocket
+    const ws = connectWebSocket(symbols, dispatch);
+
+    return () => {
+      // Закриваємо WebSocket при розмонтуванні компонента
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.close();
+      }
+    };
+  }, []); // Викликається лише один раз при монтуванні компонента
 
   if (error) return <p>Error: {error}</p>;
 
