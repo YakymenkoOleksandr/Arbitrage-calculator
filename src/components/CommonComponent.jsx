@@ -14,7 +14,7 @@ export function CommonComponnt({
     !pricesSecondCoin ||
     !pricesCoinToCoin
   ) {
-    return <p>Недостатньо даних для розрахунку</p>;
+    return <p>Не всі данні</p>;
   }
 
   // Виконання розрахунків
