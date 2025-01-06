@@ -393,7 +393,7 @@ function App() {
           pricesSecondCoin={pricesSecondCoin}
           pricesCoinToCoin={pricesCoinToCoin}
         />
-      ))}
+      ))} 
     </div>
     </div>
   );
