@@ -14,7 +14,7 @@ export function CommonComponnt({
     !pricesSecondCoin ||
     !pricesCoinToCoin
   ) {
-    return <p>Не всі данні</p>;
+    return <p>Не всі данні отримані</p>;
   }
 
   // Виконання розрахунків

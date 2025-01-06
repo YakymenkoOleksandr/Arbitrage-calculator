@@ -1,7 +1,7 @@
 import css from"./App.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { fetchCryptoPrices } from "./redux/actions/actions.js";
+// import { fetchCryptoPrices } from "./redux/actions/actions.js";  //Підключається. якщо потрібно отримувати данні через http запити
 import { CommonComponnt } from "./components/CommonComponent.jsx";
 import {connectWebSocket} from "./serviceBinance/WebSocketService.js"
 
@@ -113,8 +113,55 @@ function App() {
     "ENABNB",
     "OMUSDT",
     "OMBTC",
+    "FILUSDT",
+    "FILBTC",
+    "FILETH",
+    "ALGOUSDT",
+    "ALGOBTC",
+    "ATOMUSDT",
+    "ATOMBTC",
+    "OPUSDT",
+    "OPBTC",
+    "OPETH",
+    "PENGUUSDT",
+    "PENGUBNB",
+    "STXUSDT",
+    "STXBTC",
+    "STXBNB",
+    "TIABTC",
+    "TIAUSDT",
+    "INJUSDT",
+    "INJBTC",
+    "INJETH",
+    "INJBNB",
+    "THETAUSDT",
+    "THETABTC",
+    "IMXUSDT",
+    "IMXBTC",
+    "MOVEUSDT",
+    "MOVEBTC",
+    "MOVEBNB",
+    "GRTUSDT",
+    "GRTBTC",
+    "GRTETH",
+    "WLDUSDT",
+    "WLDBTC",
+    "FTMUSDT",
+    "FTMBTC",
+    "FTMETH",
+    "FTMBNB",
+    "WIFUSDT",
+    "WIFBTC",
+    "SEIUSDT",
+    "SEIBTC",
+    "SEIBNB",
+    "LDOUSDT",
+    "LDOBTC",
+    "SANDUSDT",
+    "SANDBTC",
   ];
 
+  // Система отримання данних за допомогою http запитів 
   /*useEffect(() => {
     dispatch(fetchCryptoPrices(symbols));
     // Викликаємо fetchCryptoPrices для всіх пар одночасно
@@ -127,7 +174,7 @@ function App() {
   }, [dispatch]);*/
   
 
-  // Другий useEffect: Підключення до WebSocket
+  //Система отримання данних за допомогою прямого підключення до біржі через WebSocket
   useEffect(() => {
     // Викликаємо функцію для підключення до WebSocket
     const ws = connectWebSocket(symbols, dispatch);
@@ -138,139 +185,35 @@ function App() {
         ws.close();
       }
     };
-  }, []); // Викликається лише один раз при монтуванні компонента
+  }, [symbols, dispatch]); // Викликається лише один раз при монтуванні компонента
 
   if (error) return <p>Error: {error}</p>;
-
-  // Отримуємо ціни для кожної пари
-  const pricesBTCUSDT = prices["BTCUSDT"];
-  const pricesETHUSDT = prices["ETHUSDT"];
-  const pricesETHBTC = prices["ETHBTC"];
-  const pricesBNBUSDT = prices["BNBUSDT"];
-  const pricesBNBETH = prices["BNBETH"];
-  const pricesBNBBTC = prices["BNBBTC"];
-  const pricesXRPUSDT = prices["XRPUSDT"];
-  const pricesXRPBNB = prices["XRPBNB"];
-  const pricesXRPETH = prices["XRPETH"];
-  const pricesXRPBTC = prices["XRPBTC"];
-  const pricesDOTUSDT = prices["DOTUSDT"];
-  const pricesDOTBTC = prices["DOTBTC"];
-  const pricesDOTETH = prices["DOTETH"];
-  const pricesDOTBNB = prices["DOTBNB"];
-  const pricesSOLUSDT = prices["SOLUSDT"];
-  const pricesSOLBTC = prices["SOLBTC"];
-  const pricesSOLETH = prices["SOLETH"];
-  const pricesSOLBNB = prices["SOLBNB"];
-  const pricesADAUSDT = prices["ADAUSDT"];
-  const pricesADABTC = prices["ADABTC"];
-  const pricesADAETH = prices["ADAETH"];
-  const pricesADABNB = prices["ADABNB"];
-  const pricesTRXUSDT = prices["TRXUSDT"];
-  const pricesTRXBTC = prices["TRXBTC"];
-  const pricesTRXETH = prices["TRXETH"];
-  const pricesTRXBNB = prices["TRXBNB"];
-  const pricesAVAXUSDT = prices["AVAXUSDT"];
-  const pricesAVAXBTC = prices["AVAXBTC"];
-  const pricesAVAXETH = prices["AVAXETH"];
-  const pricesAVAXBNB = prices["AVAXBNB"];
-  const pricesSUIUSDT = prices["SUIUSDT"];
-  const pricesSUIBTC = prices["SUIBTC"];
-  const pricesSUIBNB = prices["SUIBNB"];
-  const pricesLINKUSDT = prices["LINKUSDT"];
-  const pricesLINKBTC = prices["LINKBTC"];
-  const pricesLINKETH = prices["LINKETH"];
-  const pricesLINKBNB = prices["LINKBNB"];
-  const pricesTONUSDT = prices["TONUSDT"];
-  const pricesTONBTC = prices["TONBTC"];
-  const pricesSHIBUSDT = prices["SHIBUSDT"];
-  const pricesDOGEUSDT = prices["DOGEUSDT"];
-  const pricesSHIBDOGE = prices["SHIBDOGE"];
-  const pricesDOGEBTC = prices["DOGEBTC"];
-  const pricesXLMUSDT = prices["XLMUSDT"];
-  const pricesXLMBTC = prices["XLMBTC"];
-  const pricesXLMETH = prices["XLMETH"];
-  const pricesWBTCUSDT = prices["XLMUSDT"];
-  const pricesWBTCBTC = prices["XLMBTC"];
-  const pricesWBTCETH = prices["XLMETH"];
-  const pricesHBARUSDT = prices["HBARUSDT"];
-  const pricesHBARBTC = prices["HBARBTC"];
-  const pricesHBARBNB = prices["HBARBNB"];
-  const pricesBCHUSDT = prices["BCHUSDT"];
-  const pricesBCHBTC = prices["BCHBTC"];
-  const pricesBCHBNB = prices["BCHBNB"];
-  const pricesUNIUSDT = prices["UNIUSDT"];
-  const pricesUNIBTC = prices["UNIBTC"];
-  const pricesUNIETH = prices["UNIETH"];
-  
-
- // console.log(pricesADAUSDT, pricesADABTC, pricesADAETH, pricesADABNB);
-  
-  const pricesBTCETH = 1 / prices["ETHBTC"];
-  const pricesETHBNB = 1 / prices["BNBETH"];
-  const pricesBTCBNB = 1 / prices["BNBBTC"];
-  const pricesBNBXRP = 1 / prices["XRPBNB"];
-  const pricesETHXRP = 1 / prices["XRPETH"];
-  const pricesBTCXRP = 1 / prices["XRPBTC"];
-  const pricesBTCDOT = 1 / prices["DOTBTC"];
-  const pricesETHDOT = 1 / prices["DOTETH"];
-  const pricesBNBDOT = 1 / prices["DOTBNB"];
-  const pricesBTCSOL = 1 / prices["SOLBTC"];
-  const pricesETHSOL = 1 / prices["SOLETH"];
-  const pricesBNBSOL = 1 / prices["SOLBNB"];
-  const pricesBTCADA = 1 /  prices["ADABTC"];
-  const pricesETHADA = 1 / prices["ADAETH"];
-  const pricesBNBADA = 1 / prices["ADABNB"];
-  const pricesBTCTRX = 1 / prices["TRXBTC"];
-  const pricesETHTRX = 1 / prices["TRXETH"];
-  const pricesBNBTRX = 1 / prices["TRXBNB"];
-  const pricesBTCAVAX = 1 /  prices["AVAXBTC"];
-  const pricesETHAVAX = 1 /  prices["AVAXETH"];
-  const pricesBNBAVAX = 1 / prices["AVAXBNB"];
-  const pricesBTCSUI = 1 /  prices["SUIBTC"];
-  const pricesBNBSUI = 1 / prices["SUIBNB"];
-  const pricesBTCLINK = 1 /  prices["LINKBTC"];
-  const pricesETHLINK = 1 /  prices["LINKETH"];
-  const pricesBNBLINK = 1 / prices["LINKBNB"];
-  const pricesBTCTON = 1 / prices["TONBTC"];
-  const pricesDOGESHIB = 1 / prices["SHIBDOGE"];
-  const pricesBTCDOGE = 1 / prices["DOGEBTC"];
-  const pricesBTCXLM = 1 /  prices["XLMBTC"];
-  const pricesETHXLM = 1 / prices["XLMETH"];
-  const pricesBTCWBTC = 1 / prices["XLMBTC"];
-  const pricesETHWBTC = 1 / prices["XLMETH"];
-  const pricesBTCHBAR = 1 / prices["HBARBTC"];
-  const pricesBNBHBAR = 1 / prices["HBARBNB"];
-  const pricesBTCBCH = 1 /  prices["BCHBTC"];
-  const pricesBNBBCH = 1 / prices["BCHBNB"];
-  const pricesBTCUNI = 1 / prices["UNIBTC"];
-  const pricesETHUNI = 1 / prices["UNIETH"];
-
   //  console.log(pricesBTCSOL, pricesETHSOL, pricesBNBSOL);
 
   // Масив даних для пар криптовалют
   const pairs = [
-    { pairName: "BTC→ETH→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesETHUSDT, pricesCoinToCoin: pricesETHBTC },
-    { pairName: "BTC→BNB→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesBNBUSDT, pricesCoinToCoin: pricesBNBBTC },
-    { pairName: "BTC→XRP→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesXRPUSDT, pricesCoinToCoin: pricesXRPBTC },
-    { pairName: "BTC→DOT→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesDOTUSDT, pricesCoinToCoin: pricesDOTBTC },
-    { pairName: "BTC→SOL→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesSOLUSDT, pricesCoinToCoin: pricesSOLBTC },
-    { pairName: "BTC→ADA→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesADAUSDT, pricesCoinToCoin: pricesADABTC },
-    { pairName: "BTC→TRX→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesTRXUSDT, pricesCoinToCoin: pricesTRXBTC },
-    { pairName: "BTC→AVAX→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesAVAXUSDT, pricesCoinToCoin: pricesAVAXBTC },
-    { pairName: "BTC→SUI→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesSUIUSDT, pricesCoinToCoin: pricesSUIBTC },
-    { pairName: "BTC→LINK→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesLINKUSDT, pricesCoinToCoin: pricesLINKBTC },
-    { pairName: "BTC→TON→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesTONUSDT, pricesCoinToCoin: pricesTONBTC },
-    { pairName: "BTC→DOGE→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesDOGEUSDT, pricesCoinToCoin: pricesDOGEBTC },
-    { pairName: "BTC→XLM→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesXLMUSDT, pricesCoinToCoin: pricesXLMBTC },
-    { pairName: "BTC→WBTC→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesWBTCUSDT, pricesCoinToCoin: pricesWBTCBTC },
-    { pairName: "BTC→HBAR→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesHBARUSDT, pricesCoinToCoin: pricesHBARBTC },
-    { pairName: "BTC→BCH→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesBCHUSDT, pricesCoinToCoin: pricesBCHBTC },
-    { pairName: "BTC→UNI→USDT", pricesFirstCoin: pricesBTCUSDT, pricesSecondCoin: pricesUNIUSDT, pricesCoinToCoin: pricesUNIBTC },
+    { pairName: "BTC→ETH→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['ETHUSDT'], pricesCoinToCoin: prices['ETHBTC'] },
+    { pairName: "BTC→BNB→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['BNBUSDT'], pricesCoinToCoin: prices['BNBBTC'] },
+    { pairName: "BTC→XRP→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['XRPUSDT'], pricesCoinToCoin: prices['XRPBTC'] },
+    { pairName: "BTC→DOT→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['DOTUSDT'], pricesCoinToCoin: prices['DOTBTC'] },
+    { pairName: "BTC→SOL→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['SOLUSDT'], pricesCoinToCoin: prices['SOLBTC'] },
+    { pairName: "BTC→ADA→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['ADAUSDT'], pricesCoinToCoin: prices['ADABTC'] },
+    { pairName: "BTC→TRX→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['TRXUSDT'], pricesCoinToCoin: prices['TRXBTC'] },
+    { pairName: "BTC→AVAX→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['AVAXUSDT'], pricesCoinToCoin: prices['AVAXBTC'] },
+    { pairName: "BTC→SUI→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['SUIUSDT'], pricesCoinToCoin: prices['SUIBTC'] },
+    { pairName: "BTC→LINK→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['LINKUSDT'], pricesCoinToCoin: prices['LINKBTC'] },
+    { pairName: "BTC→TON→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['TONUSDT'], pricesCoinToCoin: prices['TONBTC'] },
+    { pairName: "BTC→DOGE→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['DOGEUSDT'], pricesCoinToCoin: prices['DOGEBTC'] },
+    { pairName: "BTC→XLM→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['XLMUSDT'], pricesCoinToCoin: prices['XLMBTC'] },
+    { pairName: "BTC→WBTC→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['WBTCUSDT'], pricesCoinToCoin: prices['WBTCBTC'] },
+    { pairName: "BTC→HBAR→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['HBARUSDT'], pricesCoinToCoin: prices['HBARBTC']},
+    { pairName: "BTC→BCH→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['BCHUSDT'], pricesCoinToCoin: prices['BCHBTC'] },
+    { pairName: "BTC→UNI→USDT", pricesFirstCoin: prices['BTCUSDT'], pricesSecondCoin: prices['UNIUSDT'], pricesCoinToCoin: prices['UNIBTC'] },
     { pairName: "BTC→LTC→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["LTCUSDT"], pricesCoinToCoin: prices['LTCBTC'] },
     { pairName: "BTC→NEAR→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["NEARUSDT"], pricesCoinToCoin: prices['NEARBTC'] },
     { pairName: "BTC→ICP→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["ICPUSDT"], pricesCoinToCoin: prices['ICPBTC'] },
     { pairName: "BTC→APT→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["APTUSDT"], pricesCoinToCoin: prices['APTBTC'] },
-    { pairName: "BTC→DAI→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["USDTDAI"], pricesCoinToCoin: prices['BTCDAI'] },
+    { pairName: "BTC→DAI→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["USDTDAI"], pricesCoinToCoin: 1 / prices['BTCDAI'] },
     { pairName: "BTC→AAVE→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["AAVEUSDT"], pricesCoinToCoin: prices['AAVEBTC'] },
     { pairName: "BTC→POL→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["POLUSDT"], pricesCoinToCoin: prices['POLBTC'] },
     { pairName: "BTC→ETC→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["ETCUSDT"], pricesCoinToCoin: prices['ETCBTC'] },
@@ -278,19 +221,37 @@ function App() {
     { pairName: "BTC→VET→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["VETUSDT"], pricesCoinToCoin: prices['VETBTC'] },
     { pairName: "BTC→ENA→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["ENAUSDT"], pricesCoinToCoin: prices['ENABTC'] },
     { pairName: "BTC→OM→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["OMUSDT"], pricesCoinToCoin: prices['OMBTC'] },
+    { pairName: "BTC→FIL→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["FILUSDT"], pricesCoinToCoin: prices['FILBTC'] },
+    { pairName: "BTC→ALGO→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["ALGOUSDT"], pricesCoinToCoin: prices['ALGOBTC'] },
+    { pairName: "BTC→ATOM→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["ATOMUSDT"], pricesCoinToCoin: prices['ATOMBTC'] },
+    { pairName: "BTC→OP→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["OPUSDT"], pricesCoinToCoin: prices['OPMBTC'] },
+    { pairName: "BTC→STX→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["STXUSDT"], pricesCoinToCoin: prices['STXBTC'] },
+    { pairName: "BTC→TIA→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["TIAUSDT"], pricesCoinToCoin: prices['TIABTC'] },
+    { pairName: "BTC→INJ→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["INJUSDT"], pricesCoinToCoin: prices['INJBTC'] },
+    { pairName: "BTC→THETA→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["THETAUSDT"], pricesCoinToCoin: prices['THETABTC'] },
+    { pairName: "BTC→IMX→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["IMXUSDT"], pricesCoinToCoin: prices['IMXBTC'] },
+    { pairName: "BTC→MOVE→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["MOVEUSDT"], pricesCoinToCoin: prices['MOVEBTC'] },
+    { pairName: "BTC→GRT→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["GRTUSDT"], pricesCoinToCoin: prices['GRTBTC'] },
+    { pairName: "BTC→WLD→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["WLDUSDT"], pricesCoinToCoin: prices['WLDBTC'] },
+    { pairName: "BTC→FTM→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["FTMUSDT"], pricesCoinToCoin: prices['FTMBTC'] },
+    { pairName: "BTC→WIF→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["WIFUSDT"], pricesCoinToCoin: prices['WIFBTC'] },
+    { pairName: "BTC→SEI→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["SEIUSDT"], pricesCoinToCoin: prices['SEIBTC'] },
+    { pairName: "BTC→LDO→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["LDOUSDT"], pricesCoinToCoin: prices['LDOBTC'] },
+    { pairName: "BTC→SAND→USDT", pricesFirstCoin: prices["BTCUSDT"], pricesSecondCoin: prices["SANDUSDT"], pricesCoinToCoin: prices['SANDBTC'] },
 
-    { pairName: "ETH→BTC→USDT", pricesFirstCoin: pricesETHUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCETH },
-    { pairName: "ETH→BNB→USDT", pricesFirstCoin: pricesETHUSDT, pricesSecondCoin: pricesBNBUSDT, pricesCoinToCoin: pricesBNBETH },
-    { pairName: "ETH→XRP→USDT", pricesFirstCoin: pricesETHUSDT, pricesSecondCoin: pricesXRPUSDT, pricesCoinToCoin: pricesXRPETH },
-    { pairName: "ETH→DOT→USDT", pricesFirstCoin: pricesETHUSDT, pricesSecondCoin: pricesDOTUSDT, pricesCoinToCoin: pricesDOTETH },
-    { pairName: "ETH→SOL→USDT", pricesFirstCoin: pricesETHUSDT, pricesSecondCoin: pricesSOLUSDT, pricesCoinToCoin: pricesSOLETH },
-    { pairName: "ETH→ADA→USDT", pricesFirstCoin: pricesETHUSDT, pricesSecondCoin: pricesADAUSDT, pricesCoinToCoin: pricesADAETH },
-    { pairName: "ETH→TRX→USDT", pricesFirstCoin: pricesETHUSDT, pricesSecondCoin: pricesTRXUSDT, pricesCoinToCoin: pricesTRXETH },
-    { pairName: "ETH→AVAX→USDT", pricesFirstCoin: pricesETHUSDT, pricesSecondCoin: pricesAVAXUSDT, pricesCoinToCoin: pricesAVAXETH },
-    { pairName: "ETH→LINK→USDT", pricesFirstCoin: pricesETHUSDT, pricesSecondCoin: pricesLINKUSDT, pricesCoinToCoin: pricesLINKETH },
-    { pairName: "ETH→XLM→USDT", pricesFirstCoin: pricesETHUSDT, pricesSecondCoin: pricesXLMUSDT, pricesCoinToCoin: pricesXLMETH },
-    { pairName: "ETH→WBTC→USDT", pricesFirstCoin: pricesETHUSDT, pricesSecondCoin: pricesWBTCUSDT, pricesCoinToCoin: pricesWBTCETH },
-    { pairName: "ETH→UNI→USDT", pricesFirstCoin: pricesETHUSDT, pricesSecondCoin: pricesUNIUSDT, pricesCoinToCoin: pricesUNIETH },
+
+    { pairName: "ETH→BTC→USDT", pricesFirstCoin: prices['ETHUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 / prices['ETHBTC'] },
+    { pairName: "ETH→BNB→USDT", pricesFirstCoin: prices['ETHUSDT'], pricesSecondCoin: prices['BNBUSDT'], pricesCoinToCoin: prices['BNBETH'] },
+    { pairName: "ETH→XRP→USDT", pricesFirstCoin: prices['ETHUSDT'], pricesSecondCoin: prices['XRPUSDT'], pricesCoinToCoin: prices['XRPETH'] },
+    { pairName: "ETH→DOT→USDT", pricesFirstCoin: prices['ETHUSDT'], pricesSecondCoin: prices['DOTUSDT'], pricesCoinToCoin: prices['DOTETH'] },
+    { pairName: "ETH→SOL→USDT", pricesFirstCoin: prices['ETHUSDT'], pricesSecondCoin: prices['SOLUSDT'], pricesCoinToCoin: prices['SOLETH'] },
+    { pairName: "ETH→ADA→USDT", pricesFirstCoin: prices['ETHUSDT'], pricesSecondCoin: prices['ADAUSDT'], pricesCoinToCoin: prices['ADAETH'] },
+    { pairName: "ETH→TRX→USDT", pricesFirstCoin: prices['ETHUSDT'], pricesSecondCoin: prices['TRXUSDT'], pricesCoinToCoin: prices['TRXETH'] },
+    { pairName: "ETH→AVAX→USDT", pricesFirstCoin: prices['ETHUSDT'], pricesSecondCoin: prices['AVAXUSDT'], pricesCoinToCoin: prices['AVAXETH'] },
+    { pairName: "ETH→LINK→USDT", pricesFirstCoin: prices['ETHUSDT'], pricesSecondCoin: prices['LINKUSDT'], pricesCoinToCoin: prices['LINKETH'] },
+    { pairName: "ETH→XLM→USDT", pricesFirstCoin: prices['ETHUSDT'], pricesSecondCoin: prices['XLMUSDT'], pricesCoinToCoin: prices['XLMETH'] },
+    { pairName: "ETH→WBTC→USDT", pricesFirstCoin: prices['ETHUSDT'], pricesSecondCoin: prices['WBTCUSDT'], pricesCoinToCoin: prices['WBTCETH'] },
+    { pairName: "ETH→UNI→USDT", pricesFirstCoin: prices['ETHUSDT'], pricesSecondCoin: prices['UNIUSDT'], pricesCoinToCoin: prices['UNIETH'] },
     { pairName: "ETH→LTC→USDT", pricesFirstCoin: prices['ETHUSDT'], pricesSecondCoin: prices['LTCUSDT'], pricesCoinToCoin: prices['LTCETH'] },
     { pairName: "ETH→NEAR→USDT", pricesFirstCoin: prices['ETHUSDT'], pricesSecondCoin: prices['NEARUSDT'], pricesCoinToCoin: prices['NEARETH'] },
     { pairName: "ETH→ICP→USDT", pricesFirstCoin: prices["ETHUSDT"], pricesSecondCoin: prices["ICPUSDT"], pricesCoinToCoin: prices['ICPETH'] },
@@ -300,61 +261,72 @@ function App() {
     { pairName: "ETH→POL→USDT", pricesFirstCoin: prices["ETHUSDT"], pricesSecondCoin: prices["POLUSDT"], pricesCoinToCoin: prices['POLETH'] },
     { pairName: "ETH→ETC→USDT", pricesFirstCoin: prices["ETHUSDT"], pricesSecondCoin: prices["ETCUSDT"], pricesCoinToCoin: prices['ETCETH'] },
     { pairName: "ETH→VET→USDT", pricesFirstCoin: prices["ETHUSDT"], pricesSecondCoin: prices["VETUSDT"], pricesCoinToCoin: prices['VETETH'] },
+    { pairName: "ETH→FIL→USDT", pricesFirstCoin: prices["ETHUSDT"], pricesSecondCoin: prices["FILUSDT"], pricesCoinToCoin: prices['FILETH'] },
+    { pairName: "ETH→OP→USDT", pricesFirstCoin: prices["ETHUSDT"], pricesSecondCoin: prices["OPUSDT"], pricesCoinToCoin: prices['OPETH'] },
+    { pairName: "ETH→INJ→USDT", pricesFirstCoin: prices["ETHUSDT"], pricesSecondCoin: prices["INJUSDT"], pricesCoinToCoin: prices['INJETH'] },
+    { pairName: "ETH→GRT→USDT", pricesFirstCoin: prices["ETHUSDT"], pricesSecondCoin: prices["GRTUSDT"], pricesCoinToCoin: prices['GRTETH'] },
+    { pairName: "ETH→FTM→USDT", pricesFirstCoin: prices["ETHUSDT"], pricesSecondCoin: prices["FTMUSDT"], pricesCoinToCoin: prices['FTMETH'] },
 
-    { pairName: "BNB→ETH→USDT", pricesFirstCoin: pricesBNBUSDT, pricesSecondCoin: pricesETHUSDT, pricesCoinToCoin: pricesETHBNB },
-    { pairName: "BNB→BTC→USDT", pricesFirstCoin: pricesBNBUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCBNB },
-    { pairName: "BNB→XRP→USDT", pricesFirstCoin: pricesBNBUSDT, pricesSecondCoin: pricesXRPUSDT, pricesCoinToCoin: pricesXRPBNB },
-    { pairName: "BNB→DOT→USDT", pricesFirstCoin: pricesBNBUSDT, pricesSecondCoin: pricesDOTUSDT, pricesCoinToCoin: pricesDOTBNB },
-    { pairName: "BNB→SOL→USDT", pricesFirstCoin: pricesBNBUSDT, pricesSecondCoin: pricesSOLUSDT, pricesCoinToCoin: pricesSOLBNB },
-    { pairName: "BNB→ADA→USDT", pricesFirstCoin: pricesBNBUSDT, pricesSecondCoin: pricesADAUSDT, pricesCoinToCoin: pricesADABNB },
-    { pairName: "BNB→TRX→USDT", pricesFirstCoin: pricesBNBUSDT, pricesSecondCoin: pricesTRXUSDT, pricesCoinToCoin: pricesTRXBNB },
-    { pairName: "BNB→AVAX→USDT", pricesFirstCoin: pricesBNBUSDT, pricesSecondCoin: pricesAVAXUSDT, pricesCoinToCoin: pricesAVAXBNB },
-    { pairName: "BNB→SUI→USDT", pricesFirstCoin: pricesBNBUSDT, pricesSecondCoin: pricesSUIUSDT, pricesCoinToCoin: pricesSUIBNB },
-    { pairName: "BNB→LINK→USDT", pricesFirstCoin: pricesBNBUSDT, pricesSecondCoin: pricesLINKUSDT, pricesCoinToCoin: pricesLINKBNB },
-    { pairName: "BNB→HBAR→USDT", pricesFirstCoin: pricesBNBUSDT, pricesSecondCoin: pricesHBARUSDT, pricesCoinToCoin: pricesHBARBNB },
-    { pairName: "BNB→BCH→USDT", pricesFirstCoin: pricesBNBUSDT, pricesSecondCoin: pricesBCHUSDT, pricesCoinToCoin: pricesBCHBNB },
+    { pairName: "BNB→ETH→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['ETHUSDT'], pricesCoinToCoin: 1 / prices['BNBETH'] },
+    { pairName: "BNB→BTC→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 / prices['BNBBTC'] },
+    { pairName: "BNB→XRP→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['XRPUSDT'], pricesCoinToCoin: prices['XRPBNB'] },
+    { pairName: "BNB→DOT→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['DOTUSDT'], pricesCoinToCoin: prices['DOTBNB'] },
+    { pairName: "BNB→SOL→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['SOLUSDT'], pricesCoinToCoin: prices['SOLBNB'] },
+    { pairName: "BNB→ADA→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['ADAUSDT'], pricesCoinToCoin: prices['ADABNB'] },
+    { pairName: "BNB→TRX→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['TRXUSDT'], pricesCoinToCoin: prices['TRXBNB'] },
+    { pairName: "BNB→AVAX→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['AVAXUSDT'], pricesCoinToCoin: prices['AVAXBNB'] },
+    { pairName: "BNB→SUI→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['SUIUSDT'], pricesCoinToCoin: prices['SUIBNB'] },
+    { pairName: "BNB→LINK→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['LINKUSDT'], pricesCoinToCoin: prices['LINKBNB'] },
+    { pairName: "BNB→HBAR→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['HBARUSDT'], pricesCoinToCoin: prices['HBARBNB'] },
+    { pairName: "BNB→BCH→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['BCHUSDT'], pricesCoinToCoin: prices['BCHBNB'] },
     { pairName: "BNB→LTC→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['BCHUSDT'], pricesCoinToCoin: prices['BCHBNB'] },
     { pairName: "BNB→ETC→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['ETCUSDT'], pricesCoinToCoin: prices['ETCBNB'] },
     { pairName: "BNB→VET→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['VETUSDT'], pricesCoinToCoin: prices['VETBNB'] },
     { pairName: "BNB→ENA→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['ENAUSDT'], pricesCoinToCoin: prices['ENABNB'] },
+    { pairName: "BNB→PENGU→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['PENGUUSDT'], pricesCoinToCoin: prices['PENGUBNB'] },
+    { pairName: "BNB→STX→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['STXUSDT'], pricesCoinToCoin: prices['STXBNB'] },
+    { pairName: "BNB→INJ→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['INJUSDT'], pricesCoinToCoin: prices['INJBNB'] },
+    { pairName: "BNB→MOVE→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['MOVEUSDT'], pricesCoinToCoin: prices['MOVEBNB'] },
+    { pairName: "BNB→FTM→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['FTMUSDT'], pricesCoinToCoin: prices['FTMBNB'] },
+    { pairName: "BNB→SEI→USDT", pricesFirstCoin: prices['BNBUSDT'], pricesSecondCoin: prices['SEIUSDT'], pricesCoinToCoin: prices['SEIBNB'] },
 
-    { pairName: "XRP→BNB→USDT", pricesFirstCoin: pricesXRPUSDT, pricesSecondCoin: pricesBNBUSDT, pricesCoinToCoin: pricesBNBXRP },
-    { pairName: "XRP→ETH→USDT", pricesFirstCoin: pricesXRPUSDT, pricesSecondCoin: pricesETHUSDT, pricesCoinToCoin: pricesETHXRP },
-    { pairName: "XRP→BTC→USDT", pricesFirstCoin: pricesXRPUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCXRP },
-    { pairName: "DOT→BTC→USDT", pricesFirstCoin: pricesDOTUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCDOT },
-    { pairName: "DOT→ETH→USDT", pricesFirstCoin: pricesDOTUSDT, pricesSecondCoin: pricesETHUSDT, pricesCoinToCoin: pricesETHDOT },
-    { pairName: "DOT→BNB→USDT", pricesFirstCoin: pricesDOTUSDT, pricesSecondCoin: pricesBNBUSDT, pricesCoinToCoin: pricesBNBDOT },
-    { pairName: "SOL→BTC→USDT", pricesFirstCoin: pricesSOLUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCSOL },
-    { pairName: "SOL→ETH→USDT", pricesFirstCoin: pricesSOLUSDT, pricesSecondCoin: pricesETHUSDT, pricesCoinToCoin: pricesETHSOL },
-    { pairName: "SOL→BNB→USDT", pricesFirstCoin: pricesSOLUSDT, pricesSecondCoin: pricesBNBUSDT, pricesCoinToCoin: pricesBNBSOL },
-    { pairName: "ADA→BTC→USDT", pricesFirstCoin: pricesADAUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCADA },
-    { pairName: "ADA→ETH→USDT", pricesFirstCoin: pricesADAUSDT, pricesSecondCoin: pricesETHUSDT, pricesCoinToCoin: pricesETHADA },
-    { pairName: "ADA→BNB→USDT", pricesFirstCoin: pricesADAUSDT, pricesSecondCoin: pricesBNBUSDT, pricesCoinToCoin: pricesBNBADA },
-    { pairName: "TRX→BTC→USDT", pricesFirstCoin: pricesTRXUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCTRX },
-    { pairName: "TRX→ETH→USDT", pricesFirstCoin: pricesTRXUSDT, pricesSecondCoin: pricesETHUSDT, pricesCoinToCoin: pricesETHTRX },
-    { pairName: "TRX→BNB→USDT", pricesFirstCoin: pricesTRXUSDT, pricesSecondCoin: pricesBNBUSDT, pricesCoinToCoin: pricesBNBTRX },
-    { pairName: "AVAX→BTC→USDT", pricesFirstCoin: pricesAVAXUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCAVAX },
-    { pairName: "AVAX→ETH→USDT", pricesFirstCoin: pricesAVAXUSDT, pricesSecondCoin: pricesETHUSDT, pricesCoinToCoin: pricesETHAVAX },
-    { pairName: "AVAX→BNB→USDT", pricesFirstCoin: pricesAVAXUSDT, pricesSecondCoin: pricesBNBUSDT, pricesCoinToCoin: pricesBNBAVAX },
-    { pairName: "SUI→BTC→USDT", pricesFirstCoin: pricesSUIUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCSUI },
-    { pairName: "SUI→BNB→USDT", pricesFirstCoin: pricesSUIUSDT, pricesSecondCoin: pricesBNBUSDT, pricesCoinToCoin: pricesBNBSUI },
-    { pairName: "LINK→BTC→USDT", pricesFirstCoin: pricesLINKUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCLINK },
-    { pairName: "LINK→ETH→USDT", pricesFirstCoin: pricesLINKUSDT, pricesSecondCoin: pricesETHUSDT, pricesCoinToCoin: pricesETHLINK },
-    { pairName: "LINK→BNB→USDT", pricesFirstCoin: pricesLINKUSDT, pricesSecondCoin: pricesBNBUSDT, pricesCoinToCoin: pricesBNBLINK },
-    { pairName: "TON→BTC→USDT", pricesFirstCoin: pricesTONUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCTON },
-    { pairName: "SHIB→DOGE→USDT", pricesFirstCoin: pricesSHIBUSDT, pricesSecondCoin: pricesDOGEUSDT, pricesCoinToCoin:  pricesDOGESHIB },
-    { pairName: "DOGE→SHIB→USDT", pricesFirstCoin: pricesDOGEUSDT, pricesSecondCoin: pricesSHIBUSDT, pricesCoinToCoin: pricesSHIBDOGE },
-    { pairName: "DOGE→BTC→USDT", pricesFirstCoin: pricesDOGEUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCDOGE },
-    { pairName: "XLM→BTC→USDT", pricesFirstCoin: pricesXLMUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCXLM },
-    { pairName: "XLM→ETH→USDT", pricesFirstCoin: pricesXLMUSDT, pricesSecondCoin: pricesETHUSDT, pricesCoinToCoin: pricesETHXLM },
-    { pairName: "WBTC→BTC→USDT", pricesFirstCoin: pricesWBTCUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCWBTC },
-    { pairName: "WBTC→ETH→USDT", pricesFirstCoin: pricesWBTCUSDT, pricesSecondCoin: pricesETHUSDT, pricesCoinToCoin: pricesETHWBTC },
-    { pairName: "HBAR→BTC→USDT", pricesFirstCoin: pricesHBARUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCHBAR },
-    { pairName: "HBAR→BNB→USDT", pricesFirstCoin: pricesHBARUSDT, pricesSecondCoin: pricesBNBUSDT, pricesCoinToCoin: pricesBNBHBAR },
-    { pairName: "BCH→BTC→USDT", pricesFirstCoin: pricesBCHUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCBCH },
-    { pairName: "BCH→BNB→USDT", pricesFirstCoin: pricesBCHUSDT, pricesSecondCoin: pricesBNBUSDT, pricesCoinToCoin: pricesBNBBCH },
-    { pairName: "UNI→BTC→USDT", pricesFirstCoin: pricesUNIUSDT, pricesSecondCoin: pricesBTCUSDT, pricesCoinToCoin: pricesBTCUNI },
-    { pairName: "UNI→ETH→USDT", pricesFirstCoin: pricesUNIUSDT, pricesSecondCoin: pricesETHUSDT, pricesCoinToCoin: pricesETHUNI },
+    { pairName: "XRP→BNB→USDT", pricesFirstCoin: prices['XRPUSDT'], pricesSecondCoin: prices['BNBUSDT'], pricesCoinToCoin: 1 / prices['XRPBNB'] },
+    { pairName: "XRP→ETH→USDT", pricesFirstCoin: prices['XRPUSDT'], pricesSecondCoin: prices['ETHUSDT'], pricesCoinToCoin: 1 /  prices['XRPETH'] },
+    { pairName: "XRP→BTC→USDT", pricesFirstCoin: prices['XRPUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 /  prices['XRPBTC'] },
+    { pairName: "DOT→BTC→USDT", pricesFirstCoin: prices['DOTUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 /  prices['DOTBTC'] },
+    { pairName: "DOT→ETH→USDT", pricesFirstCoin: prices['DOTUSDT'], pricesSecondCoin: prices['ETHUSDT'], pricesCoinToCoin: 1 /  prices['DOTETH'] },
+    { pairName: "DOT→BNB→USDT", pricesFirstCoin: prices['DOTUSDT'], pricesSecondCoin: prices['BNBUSDT'], pricesCoinToCoin: 1 /  prices['DOTBNB'] },
+    { pairName: "SOL→BTC→USDT", pricesFirstCoin: prices['SOLUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 /  prices['SOLBTC'] },
+    { pairName: "SOL→ETH→USDT", pricesFirstCoin: prices['SOLUSDT'], pricesSecondCoin: prices['ETHUSDT'], pricesCoinToCoin: 1 /  prices['SOLETH'] },
+    { pairName: "SOL→BNB→USDT", pricesFirstCoin: prices['SOLUSDT'], pricesSecondCoin: prices['BNBUSDT'], pricesCoinToCoin: 1 /  prices['SOLBNB'] },
+    { pairName: "ADA→BTC→USDT", pricesFirstCoin: prices['ADAUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 / prices['ADABTC'] },
+    { pairName: "ADA→ETH→USDT", pricesFirstCoin: prices['ADAUSDT'], pricesSecondCoin: prices['ETHUSDT'], pricesCoinToCoin: 1 /  prices['ADAETH'] },
+    { pairName: "ADA→BNB→USDT", pricesFirstCoin: prices['ADAUSDT'], pricesSecondCoin: prices['BNBUSDT'], pricesCoinToCoin: 1 /  prices['ADABNB'] },
+    { pairName: "TRX→BTC→USDT", pricesFirstCoin: prices['TRXUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 /  prices['TRXBTC'] },
+    { pairName: "TRX→ETH→USDT", pricesFirstCoin: prices['TRXUSDT'], pricesSecondCoin: prices['ETHUSDT'], pricesCoinToCoin: 1 /  prices['TRXETH'] },
+    { pairName: "TRX→BNB→USDT", pricesFirstCoin: prices['TRXUSDT'], pricesSecondCoin: prices['BNBUSDT'], pricesCoinToCoin: 1 /  prices['TRXBNB'] },
+    { pairName: "AVAX→BTC→USDT", pricesFirstCoin: prices['AVAXUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 /  prices['AVAXBTC'] },
+    { pairName: "AVAX→ETH→USDT", pricesFirstCoin: prices['AVAXUSDT'], pricesSecondCoin: prices['ETHUSDT'], pricesCoinToCoin: 1 /  prices['AVAXETH'] },
+    { pairName: "AVAX→BNB→USDT", pricesFirstCoin: prices['AVAXUSDT'], pricesSecondCoin: prices['BNBUSDT'], pricesCoinToCoin: 1 /  prices['AVAXBNB'] },
+    { pairName: "SUI→BTC→USDT", pricesFirstCoin: prices['SUIUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 /  prices['SUIBTC'] },
+    { pairName: "SUI→BNB→USDT", pricesFirstCoin: prices['SUIUSDT'], pricesSecondCoin: prices['BNBUSDT'], pricesCoinToCoin: 1 /  prices['SUIBNB'] },
+    { pairName: "LINK→BTC→USDT", pricesFirstCoin: prices['LINKUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 /  prices['LINKBTC'] },
+    { pairName: "LINK→ETH→USDT", pricesFirstCoin: prices['LINKUSDT'], pricesSecondCoin: prices['ETHUSDT'], pricesCoinToCoin: 1 /  prices['LINKETH'] },
+    { pairName: "LINK→BNB→USDT", pricesFirstCoin: prices['LINKUSDT'], pricesSecondCoin: prices['BNBUSDT'], pricesCoinToCoin: 1 /  prices['LINKBNB'] },
+    { pairName: "TON→BTC→USDT", pricesFirstCoin: prices['TONUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 /  prices['TONBTC'] },
+    { pairName: "SHIB→DOGE→USDT", pricesFirstCoin: prices['SHIBUSDT'], pricesSecondCoin: prices['DOGEUSDT'], pricesCoinToCoin: 1 /   prices['SHIBDOGE'] },
+    { pairName: "DOGE→SHIB→USDT", pricesFirstCoin: prices['DOGEUSDT'], pricesSecondCoin: prices['SHIBUSDT'], pricesCoinToCoin: prices['SHIBDOGE'] },
+    { pairName: "DOGE→BTC→USDT", pricesFirstCoin: prices['DOGEUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 /  prices['DOGEBTC'] },
+    { pairName: "XLM→BTC→USDT", pricesFirstCoin: prices['XLMUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 /  prices['XLMBTC'] },
+    { pairName: "XLM→ETH→USDT", pricesFirstCoin: prices['XLMUSDT'], pricesSecondCoin: prices['ETHUSDT'], pricesCoinToCoin: 1 /  prices['XLMETH'] },
+    { pairName: "WBTC→BTC→USDT", pricesFirstCoin: prices['WBTCUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 /  prices['WBTCBTC'] },
+    { pairName: "WBTC→ETH→USDT", pricesFirstCoin: prices['WBTCUSDT'], pricesSecondCoin: prices['ETHUSDT'], pricesCoinToCoin: 1 /  prices['WBTCETH'] },
+    { pairName: "HBAR→BTC→USDT", pricesFirstCoin: prices['HBARUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 /  prices['HBARBTC'] },
+    { pairName: "HBAR→BNB→USDT", pricesFirstCoin: prices['HBARUSDT'], pricesSecondCoin: prices['BNBUSDT'], pricesCoinToCoin: 1 /  prices['HBARBNB'] },
+    { pairName: "BCH→BTC→USDT", pricesFirstCoin: prices['BCHUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 /  prices['BCHBTC'] },
+    { pairName: "BCH→BNB→USDT", pricesFirstCoin: prices['BCHUSDT'], pricesSecondCoin: prices['BNBUSDT'], pricesCoinToCoin: 1 /  prices['BCHBNB'] },
+    { pairName: "UNI→BTC→USDT", pricesFirstCoin: prices['UNIUSDT'], pricesSecondCoin: prices['BTCUSDT'], pricesCoinToCoin: 1 /  prices['UNIBTC'] },
+    { pairName: "UNI→ETH→USDT", pricesFirstCoin: prices['UNIUSDT'], pricesSecondCoin: prices['ETHUSDT'], pricesCoinToCoin: 1 /  prices['UNIETH'] },
     { pairName: "LTC→BTC→USDT", pricesFirstCoin: prices["LTCUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["LTCBTC"] },
     { pairName: "LTC→ETH→USDT", pricesFirstCoin: prices["LTCUSDT"], pricesSecondCoin: prices["ETHUSDT"], pricesCoinToCoin: 1 / prices["LTCETH"] },
     { pairName: "LTC→BNB→USDT", pricesFirstCoin: prices["LTCUSDT"], pricesSecondCoin: prices["BNBUSDT"], pricesCoinToCoin: 1 / prices["LTCBNB"] },
@@ -377,8 +349,38 @@ function App() {
     { pairName: "ENA→BTC→USDT", pricesFirstCoin: prices["ENAUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["ENABTC"] },
     { pairName: "ENA→BNB→USDT", pricesFirstCoin: prices["ENAUSDT"], pricesSecondCoin: prices["BNBUSDT"], pricesCoinToCoin: 1 / prices["ENABNB"] },
     { pairName: "OM→BTC→USDT", pricesFirstCoin: prices["OMUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["OMBTC"] },
- 
+    { pairName: "FIL→BTC→USDT", pricesFirstCoin: prices["FILUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["FILBTC"] },
+    { pairName: "FIL→ETH→USDT", pricesFirstCoin: prices["FILUSDT"], pricesSecondCoin: prices["ETHUSDT"], pricesCoinToCoin: 1 / prices["FILETH"] },
+    { pairName: "ALGO→BTC→USDT", pricesFirstCoin: prices["ALGOUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["ALGOBTC"] },
+    { pairName: "ATOM→BTC→USDT", pricesFirstCoin: prices["ATOMUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["ATOMBTC"] },
+    { pairName: "OP→BTC→USDT", pricesFirstCoin: prices["OPUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["OPBTC"] },
+    { pairName: "OP→ETH→USDT", pricesFirstCoin: prices["OPUSDT"], pricesSecondCoin: prices["ETHUSDT"], pricesCoinToCoin: 1 / prices["OPETH"] },
+    { pairName: "PENGU→BNB→USDT", pricesFirstCoin: prices["PENGUUSDT"], pricesSecondCoin: prices["BNBUSDT"], pricesCoinToCoin: 1 / prices["PENGUBNB"] },
+    { pairName: "STX→BTC→USDT", pricesFirstCoin: prices["STXUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["STXBTC"] },
+    { pairName: "STX→BNB→USDT", pricesFirstCoin: prices["STXUSDT"], pricesSecondCoin: prices["BNBUSDT"], pricesCoinToCoin: 1 / prices["STXBNB"] },
+    { pairName: "TIA→BTC→USDT", pricesFirstCoin: prices["TIAUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["TIABTC"] },
+    { pairName: "INJ→BTC→USDT", pricesFirstCoin: prices["INJUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["INJBTC"] },
+    { pairName: "INJ→ETH→USDT", pricesFirstCoin: prices["INJUSDT"], pricesSecondCoin: prices["ETHUSDT"], pricesCoinToCoin: 1 / prices["INJETH"] },
+    { pairName: "INJ→BNB→USDT", pricesFirstCoin: prices["INJUSDT"], pricesSecondCoin: prices["BNBUSDT"], pricesCoinToCoin: 1 / prices["INJBNB"] },
+    { pairName: "THETA→BTC→USDT", pricesFirstCoin: prices["THETAUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["THETABTC"] },
+    { pairName: "IMX→BTC→USDT", pricesFirstCoin: prices["IMXUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["IMXBTC"] },
+    { pairName: "MOVE→BTC→USDT", pricesFirstCoin: prices["MOVEUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["MOVEBTC"] },
+    { pairName: "MOVE→BNB→USDT", pricesFirstCoin: prices["MOVEUSDT"], pricesSecondCoin: prices["BNBUSDT"], pricesCoinToCoin: 1 / prices["MOVEBNB"] },
+    { pairName: "GRT→BTC→USDT", pricesFirstCoin: prices["GRTUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["GRTBTC"] },
+    { pairName: "GRT→ETH→USDT", pricesFirstCoin: prices["GRTUSDT"], pricesSecondCoin: prices["ETHUSDT"], pricesCoinToCoin: 1 / prices["GRTETH"] },
+    { pairName: "WLD→BTC→USDT", pricesFirstCoin: prices["WLDUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["WLDBTC"] },
+    { pairName: "FTM→BTC→USDT", pricesFirstCoin: prices["FTMUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["FTMBTC"] },
+    { pairName: "FTM→ETH→USDT", pricesFirstCoin: prices["FTMUSDT"], pricesSecondCoin: prices["ETHUSDT"], pricesCoinToCoin: 1 / prices["FTMETH"] },
+    { pairName: "FTM→BNB→USDT", pricesFirstCoin: prices["FTMUSDT"], pricesSecondCoin: prices["BNBUSDT"], pricesCoinToCoin: 1 / prices["FTMBNB"] },
+    { pairName: "WIF→BTC→USDT", pricesFirstCoin: prices["WIFUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["WIFBTC"] },
+    { pairName: "SEI→BTC→USDT", pricesFirstCoin: prices["SEIUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["SEIBTC"] },
+    { pairName: "SEI→BNB→USDT", pricesFirstCoin: prices["SEIUSDT"], pricesSecondCoin: prices["BNBUSDT"], pricesCoinToCoin: 1 / prices["SEIBNB"] },
+    { pairName: "LDO→BTC→USDT", pricesFirstCoin: prices["LDOUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["LDOBTC"] },
+    { pairName: "SAND→BTC→USDT", pricesFirstCoin: prices["SANDUSDT"], pricesSecondCoin: prices["BTCUSDT"], pricesCoinToCoin: 1 / prices["SANDBTC"] },
   ];
+
+  // console.log(prices["PENGUSDT"]); перевірка передаваємих данних в об"єкт
+  
   return (
     <div className={css.wrapperForCoinPair}>
       <div className={css.currencyPairsOnBinance}>
