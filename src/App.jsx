@@ -1,5 +1,5 @@
 import css from"./App.module.css";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { fetchCryptoPrices } from "./redux/actions/actions.js";  //Підключається. якщо потрібно отримувати данні через http запити
 import { CommonComponnt } from "./components/CommonComponent.jsx";
@@ -15,7 +15,7 @@ function App() {
   
 
   // Список всіх пар криптовалют
-  const symbols = [
+  const symbols  = useMemo(() => [
     "BTCUSDT",
     "ETHUSDT",
     "BNBUSDT",
@@ -159,7 +159,7 @@ function App() {
     "LDOBTC",
     "SANDUSDT",
     "SANDBTC",
-  ];
+  ], []);
 
   // Система отримання данних за допомогою http запитів 
   /*useEffect(() => {
@@ -185,7 +185,7 @@ function App() {
         ws.close();
       }
     };
-  }, []); // Викликається лише один раз при монтуванні компонента
+  }, [symbols, dispatch]); // Викликається лише один раз при монтуванні компонента
 
   if (error) return <p>Error: {error}</p>;
   //  console.log(pricesBTCSOL, pricesETHSOL, pricesBNBSOL);
