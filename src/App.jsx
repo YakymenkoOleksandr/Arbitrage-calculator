@@ -185,7 +185,7 @@ function App() {
         ws.close();
       }
     };
-  }, [symbols, dispatch]); // Викликається лише один раз при монтуванні компонента
+  }, []); // Викликається лише один раз при монтуванні компонента
 
   if (error) return <p>Error: {error}</p>;
   //  console.log(pricesBTCSOL, pricesETHSOL, pricesBNBSOL);
