@@ -14,9 +14,14 @@ function App() {
   let workingСapital = 100;
   
   const [showOnlyPositive, setShowOnlyPositive] = useState(false); // Для керування фільтром позитивних пар
+  const [showOnlyMoreThen, setShowOnlyMoreThen] = useState(false); // Для керування фільтром відсотка прибутку від пари
     // Обробник для зміни стану фільтрації
   const handleFilterPositivePairs = () => {
     setShowOnlyPositive(!showOnlyPositive);
+  };
+
+  const handleFilterShowOnlyMoreThen = () => {
+    setShowOnlyMoreThen(!showOnlyMoreThen);
   };
 
   // Список всіх пар криптовалют
@@ -389,18 +394,25 @@ function App() {
   return (
     <div className={css.wrapperForCoinPair}>
       <div>
-        <h4>Блок додаткової функціональності</h4>
-        <button onClick={handleFilterPositivePairs}>
-          {showOnlyPositive ? "Показати всі пари" : "Показати тільки позитивні"}
+        <div className={css.blockOfAddButtons}>
+          <button onClick={handleFilterPositivePairs}>
+          {showOnlyPositive ? "Показати тільки позитивні" : "Показати також негативні"}
+        </button>
+        <button onClick={handleFilterShowOnlyMoreThen}>
+          {showOnlyMoreThen ? "Показати пари > 0,2" : "Показати також < 0,2"}
         </button>
       </div>
+        
+      </div>
       <div className={css.currencyPairsOnBinance}>
-      {pairs.map(({ pairName, profitInPercentage }) => (
+        {pairs
+          .map(({ pairName, profitInPercentage }) => (
         <CommonComponnt
           key={pairName} // Використовуємо pairName як унікальний ключ
           pairName={pairName}
           profitInPercentage={profitInPercentage}
           showOnlyPositive={showOnlyPositive}
+          showOnlyMoreThen={showOnlyMoreThen}
         />
       ))} 
     </div>
