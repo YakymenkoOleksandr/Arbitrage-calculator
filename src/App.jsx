@@ -1,5 +1,5 @@
 import css from"./App.module.css";
-import { useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { fetchCryptoPrices } from "./redux/actions/actions.js";  //Підключається. якщо потрібно отримувати данні через http запити
 import { CommonComponnt } from "./components/CommonComponent.jsx";
@@ -10,10 +10,14 @@ function App() {
   const dispatch = useDispatch();
   const { prices, error } = useSelector(
     (state) => state.bitcoin
-  ); // Додаємо lastFetchTime
+  ); 
   let workingСapital = 100;
- // console.log(prices);
   
+  const [showOnlyPositive, setShowOnlyPositive] = useState(false); // Для керування фільтром позитивних пар
+    // Обробник для зміни стану фільтрації
+  const handleFilterPositivePairs = () => {
+    setShowOnlyPositive(!showOnlyPositive);
+  };
 
   // Список всіх пар криптовалют
   const symbols  = useMemo(() => [
@@ -384,16 +388,19 @@ function App() {
   
   return (
     <div className={css.wrapperForCoinPair}>
+      <div>
+        <h4>Блок додаткової функціональності</h4>
+        <button onClick={handleFilterPositivePairs}>
+          {showOnlyPositive ? "Показати всі пари" : "Показати тільки позитивні"}
+        </button>
+      </div>
       <div className={css.currencyPairsOnBinance}>
-      {pairs.map(({ pairName, pricesFirstCoin, pricesSecondCoin, pricesCoinToCoin, profitInPercentage }) => (
+      {pairs.map(({ pairName, profitInPercentage }) => (
         <CommonComponnt
           key={pairName} // Використовуємо pairName як унікальний ключ
           pairName={pairName}
-          workingСapital={workingСapital}
-          pricesFirstCoin={pricesFirstCoin}
-          pricesSecondCoin={pricesSecondCoin}
-          pricesCoinToCoin={pricesCoinToCoin}
           profitInPercentage={profitInPercentage}
+          showOnlyPositive={showOnlyPositive}
         />
       ))} 
     </div>
