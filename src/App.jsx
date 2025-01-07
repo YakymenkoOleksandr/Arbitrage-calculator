@@ -399,7 +399,7 @@ function App() {
           {showOnlyPositive ? "Показати тільки позитивні" : "Показати також негативні"}
         </button>
         <button onClick={handleFilterShowOnlyMoreThen}>
-          {showOnlyMoreThen ? "Показати пари > 0,2" : "Показати також < 0,2"}
+          {showOnlyMoreThen ? "Показати пари < 0,2" : "Показати також > 0,2"}
         </button>
       </div>
         
