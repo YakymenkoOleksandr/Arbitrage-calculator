@@ -19,9 +19,12 @@ export const connectWebSocket = (symbols, dispatch) => {
       const data = JSON.parse(event.data);
 
       // Перевірка необхідних полів
-      if (data.s && data.c) {
+      if (data.s && data.b && data.a) {
         // Оновлюємо локальний об'єкт з новими даними
-        aggregatedPrices[data.s] = data.c;
+        aggregatedPrices[data.s] = {
+          bid: parseFloat(data.b), // Bid ціна
+          ask: parseFloat(data.a)  // Ask ціна
+        };
 
         // Диспатчимо оновлений об'єкт до Redux
         dispatch(updateCryptoPrices({ ...aggregatedPrices }));
